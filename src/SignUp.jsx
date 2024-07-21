@@ -3,18 +3,19 @@ import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-function SignUp(){
+function SignUp() {
   function callSignUpApi(values) {
     console.log("data going to sign up server", values);
   }
+
   // Yup for validation
   const schema = Yup.object().shape({
     username: Yup.string().min(3, 'Must be at least 3 characters').required('Required'),
     name: Yup.string().required('Required'),
     email: Yup.string().email('Invalid email').required('Required'),
     password: Yup.string().min(8, 'Must be at least 8 characters').required('Required'),
-    confirmPassword: Yup.string().min(8, 'Must be at least 8 characters').required('Required')
-  })
+    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Required')
+  });
 
   const { handleSubmit, values, handleChange, errors, handleBlur, touched, isValid, dirty } = useFormik({
     initialValues: {
@@ -26,16 +27,17 @@ function SignUp(){
     },
     onSubmit: callSignUpApi,
     validationSchema: schema,
-  })
-  
-  return(
-    <div className='flex items-center justify-center w-full max-auto h-[500px] bg-gray-200 mx-auto p-4'>
-      <div className="w-1/3 bg-white p-10 rounded-md flex flex-col justify-center">
+  });
+
+  return (
+    <div className='flex items-center justify-center w-full h-screen bg-gray-200 p-4'>
+      <div className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 bg-white p-6 sm:p-8 md:p-10 rounded-md shadow-lg">
         <form 
-          onSubmit = { handleSubmit }
-          className="flex flex-col justify-center gap-y-2">
-          <div className="flex flex-col gap-y-1">
-            <label htmlFor="username" className="sr-only">Username</label>
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-y-4"
+        >
+          <div className="flex flex-col gap-y-2">
+            <label htmlFor="username" className="text-sm font-medium text-gray-700">Username</label>
             <input
               type="text"
               name="username"
@@ -43,12 +45,12 @@ function SignUp(){
               value={values.username}
               onChange={handleChange}
               onBlur={handleBlur}
-              required
-              className="border border-gray-300 rounded-md"
+              className="border border-gray-300 rounded-md p-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter Username"
-              />
-            {touched.username && errors.username && <div className="text-red-500">{errors.username}</div>}
-            <label htmlFor="name" className="sr-only">Name</label>
+            />
+            {touched.username && errors.username && <div className="text-red-500 text-sm">{errors.username}</div>}
+
+            <label htmlFor="name" className="text-sm font-medium text-gray-700">Name</label>
             <input
               type="text"
               name="name"
@@ -56,12 +58,12 @@ function SignUp(){
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              required
-              className="border border-gray-300 rounded-md"
+              className="border border-gray-300 rounded-md p-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Full Name"
-              />
-            {touched.name && errors.name && <div className="text-red-500">{errors.name}</div>}
-            <label htmlFor="email" className="sr-only">Email</label>
+            />
+            {touched.name && errors.name && <div className="text-red-500 text-sm">{errors.name}</div>}
+
+            <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
               name="email"
@@ -69,48 +71,51 @@ function SignUp(){
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              required
-              className="border border-gray-300 rounded-md"
+              className="border border-gray-300 rounded-md p-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter email"
-              />
-            {touched.email && errors.email && <div className="text-red-500">{errors.email}</div>}
-            <label htmlFor="password" className="sr-only">Password</label>
+            />
+            {touched.email && errors.email && <div className="text-red-500 text-sm">{errors.email}</div>}
+
+            <label htmlFor="password" className="text-sm font-medium text-gray-700">Password</label>
             <input
               type="password"
               name="password"
               id="password"
-              required
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="border border-gray-300 rounded-md"
+              className="border border-gray-300 rounded-md p-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Password"
-              />
-            {touched.password && errors.password && <div className="text-red-500">{errors.password}</div>}
-            <label htmlFor="confirmPassword" className="sr-only">Password</label>
+            />
+            {touched.password && errors.password && <div className="text-red-500 text-sm">{errors.password}</div>}
+
+            <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">Confirm Password</label>
             <input
               type="password"
               name="confirmPassword"
               id="confirmPassword"
-              required
               value={values.confirmPassword}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="border border-gray-300 rounded-md"
+              className="border border-gray-300 rounded-md p-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Confirm Password"
-              />
-            {touched.confirmPassword && errors.confirmPassword && <div className="text-red-500">{errors.confirmPassword}</div>}
+            />
+            {touched.confirmPassword && errors.confirmPassword && <div className="text-red-500 text-sm">{errors.confirmPassword}</div>}
           </div>
           <button 
             type="submit"
             disabled={!dirty || !isValid}
-            className="bg-blue-500 text-white rounded-md p-1 disabled:bg-blue-300">Sign Up</button>
+            className="bg-blue-500 text-white rounded-md p-3 disabled:bg-blue-300 transition-colors"
+          >
+            Sign Up
+          </button>
         </form>
-        <div type="submit" className="mt-3">Already have a account? <Link to={`/LogIn`} 
-          className="text-blue-400 ">Log In.</Link></div>
+        <div className="mt-4 text-center text-sm">
+          Already have an account? <Link to={`/LogIn`} className="text-blue-500 hover:underline">Log In.</Link>
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default SignUp;
