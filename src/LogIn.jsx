@@ -66,7 +66,7 @@ function LogIn() {
         </button>
       </form>
       <div className="mt-3">
-        Don't have an account? <Link to={`/`} className="text-blue-400">Sign up.</Link>
+        Don't have an account? <Link to={`/SignUp`} className="text-blue-400">Sign up.</Link>
       </div>
       <div className="mt-3">
         Forgot Password? <Link to={`/Forgot-Password`} className="text-blue-400">Reset here.</Link>
