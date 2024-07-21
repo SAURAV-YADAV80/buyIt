@@ -11,6 +11,9 @@ import ProdDet from "./ProdDet";
 import ProductListPage from "./poductListPage";
 import Cart from "./Cart";
 import NotFound from './NotFound';
+import LogIn from './LogIn';
+import ForgotPassword from './Forgot-Password';
+import SignUp from "./SignUp";
 
 
 function App() {
@@ -34,6 +37,9 @@ function App() {
             <Route index element={<ProductListPage  />} />
             <Route path="/ProdDet/:id" element={<ProdDet onAddToCart= { handleAddToCart } />} />
             <Route path="/Cart" element={<Cart/>} />
+            <Route path="/LogIn" element={<LogIn/>} />
+            <Route path="/Forgot-Password" element={<ForgotPassword/>} />
+            <Route path="/SignUp" element={<SignUp/>} />
             <Route path="*" element={<NotFound/>} />
         </Routes>
       </div>
