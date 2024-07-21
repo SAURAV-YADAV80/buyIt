@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { getProductData } from './api';
-import Loading from './loader';
 
-function CartProduct({ id, data }) {
+const CartProduct = React.memo(({ id, data }) => {
   const [prod, setProduct] = useState(null);
 
   useEffect(() => {
-    const p = getProductData(id);
-    p.then((response) => {
+    const fetchProductData = async () => {
+      const response = await getProductData(id);
       setProduct(response);
-    });
+    };
+
+    fetchProductData();
   }, [id]);
 
   useEffect(() => {
@@ -21,8 +22,12 @@ function CartProduct({ id, data }) {
     }
   }, [prod, data, id]);
 
+  const totalPrice = useMemo(() => {
+    return prod ? (prod.price * data).toFixed(2) : '0.00';
+  }, [prod, data]);
+
   if (!prod) {
-    return <></>;
+    return null;
   }
 
   return (
@@ -45,11 +50,10 @@ function CartProduct({ id, data }) {
         <input className="w-8 border border-gray-300 text-center" type="text" value={data} readOnly />
       </td>
       <td className="px-4 py-2 font-bold text-gray-600 text-center">
-        ${prod.price.toFixed(2) * data}
+        ${totalPrice}
       </td>
-
     </tr>
   );
-}
+});
 
 export default CartProduct;

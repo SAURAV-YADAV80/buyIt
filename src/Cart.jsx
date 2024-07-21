@@ -1,15 +1,15 @@
 import React from 'react';
 import CartProduct from './CartProduct';
-import { Link } from 'react-router-dom';
 import BackButton from './BackButton';
+import { useMemo } from 'react';
 
 function Cart() {
   const savedData = JSON.parse(localStorage.getItem("cart") || "{}");
   const price = JSON.parse(localStorage.getItem("cartData") || "{}");
 
-  const totalMoney = Object.keys(price).reduce(function(prev, curr) {
-    return prev + price[curr];
-  }, 0).toFixed(2);
+  const totalMoney = useMemo(() => {
+    return Object.keys(price).reduce((prev, curr) => prev + price[curr], 0).toFixed(2);
+  }, [price]);
 
   return (
     <section className="my-5 bg-white mx-auto w-12/12 sm:w-11/12 p-4">
@@ -26,7 +26,7 @@ function Cart() {
               </tr>
             </thead>
             <tbody>
-              {Object.entries(savedData).map(([key, value]) => (
+              {Object.entries(savedData).map(([key]) => (
                 <CartProduct id={key} data={savedData[key]} />
               ))}
             </tbody>

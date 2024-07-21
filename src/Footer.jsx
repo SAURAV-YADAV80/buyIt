@@ -1,4 +1,5 @@
 import React from "react";
+import {memo} from 'react';
 function Footer(){
   return (
     <div className="w-full bg-gray-600 px-4 py-2">
@@ -13,5 +14,5 @@ function Footer(){
     </div>
   );
 }
-
-export default Footer;
+const newFooter = memo(Footer);
+export default newFooter;

@@ -29,7 +29,7 @@ function SignUp(){
   })
   
   return(
-    <div className='flex items-center justify-center w-full max-auto h-[500px] bg-gray-300 mx-auto p-4'>
+    <div className='flex items-center justify-center w-full max-auto h-[500px] bg-gray-200 mx-auto p-4'>
       <div className="w-1/3 bg-white p-10 rounded-md flex flex-col justify-center">
         <form 
           onSubmit = { handleSubmit }

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { memo } from 'react';
 
 const BackButton = () => {
   const navigate = useNavigate();
@@ -13,4 +14,6 @@ const BackButton = () => {
   );
 };
 
-export default BackButton;
+const newButton = memo(BackButton);
+
+export default newButton;

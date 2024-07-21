@@ -1,4 +1,4 @@
-import react from 'react';
+import {memo} from 'react';
 
 function Loading(){
   return (
@@ -7,4 +7,6 @@ function Loading(){
     </div>
   )
 }
-export default Loading;
+
+const newLoader = memo(Loading);
+export default newLoader;

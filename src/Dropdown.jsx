@@ -1,4 +1,5 @@
 import React from "react";
+import { memo } from 'react';
 
 function Dropdown({handleSortChange, sort}) {
   return (
@@ -12,5 +13,5 @@ function Dropdown({handleSortChange, sort}) {
     </div>
   );
 }
-
-export default Dropdown;
+const newDrop = memo(Dropdown);
+export default newDrop;

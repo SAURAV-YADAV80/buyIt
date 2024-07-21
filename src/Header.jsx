@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {memo} from 'react';
 
 function Header({ count }) {
   return (<div className="w-full bg-white px-4 py-3">
@@ -18,4 +19,5 @@ function Header({ count }) {
   </div>
   );
 }
-export default Header;
+const newHeader = memo(Header);
+export default newHeader;

@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import Header from "./Header";
-import Product from "./Product";
-import Dropdown from "./Dropdown";
 import Footer from "./Footer";
-import Pageno from "./Pageno";
-import Allproducts from "./products";
-import SearchBar from "./SearchBar";
 import { Routes, Route } from "react-router-dom";
 import ProdDet from "./ProdDet";
 import ProductListPage from "./poductListPage";
@@ -14,6 +9,7 @@ import NotFound from './NotFound';
 import LogIn from './LogIn';
 import ForgotPassword from './Forgot-Password';
 import SignUp from "./SignUp";
+import { useMemo } from 'react';
 
 
 function App() {
@@ -26,9 +22,9 @@ function App() {
     const cartString = JSON.stringify(newCart);
     localStorage.setItem('cart', cartString);
   }
-  const count = Object.keys(cart).reduce(function(prev, curr){
-    return prev+cart[curr];
-  },0);
+  const count = useMemo(() => {
+    return Object.keys(cart).reduce((prev, curr) => prev + cart[curr], 0);
+  }, [cart]);
   return (
     <div className="bg-gray-200 flex flex-col min-h-screen">
       <Header count = {count}/>
