@@ -20,7 +20,8 @@ function ForgotPassword(){
   })
   
   return(
-    <div>
+    <div className='flex items-center justify-center w-full max-auto h-[500px] bg-gray-300 mx-auto p-4'>
+    <div className="w-1/3 bg-white p-10 rounded-md flex flex-col justify-center">
       <form 
         onSubmit= { handleSubmit }
         className="flex flex-col gap-y-2">
@@ -44,6 +45,7 @@ function ForgotPassword(){
       </form>
       <div type="submit" className="mt-3">Already have a account? <Link to={`/LogIn`} 
         className="text-blue-400 ">Log In.</Link></div>
+    </div>
     </div>
   )
 }
