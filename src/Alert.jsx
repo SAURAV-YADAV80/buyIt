@@ -54,12 +54,12 @@ function Alert({ type, message, onClose }) {
   };
 
   return (
-    <div className={`fixed top-4 right-2 border-l-4 p-4 mb-4 ${typeStyles[type]} rounded-md`} role="alert">
+    <div className={`fixed z-40 top-4 right-2 border-l-4 p-4 mb-4 ${typeStyles[type]} rounded-md max-w-md w-full md:max-w-2xl lg:max-w-4xl`} role="alert">
       <div className="flex items-center">
         {icons[type]}
-        <div className="flex-1 ml-3"> {/* Add margin-left here */}
+        <div className="flex-1 ml-3">
           <div className="flex justify-between items-center">
-            <span className="mr-4">{message}</span> {/* Add margin-right here */}
+            <span className="mr-4">{message}</span>
             {onClose && (
               <button
                 onClick={onClose}
