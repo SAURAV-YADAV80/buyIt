@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ProdDet from './ProdDet';
 
 function Product({ thumbnail, category, title, price,id }) {
   return (

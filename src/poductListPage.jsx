@@ -45,7 +45,6 @@ function ProductListPage() {
   if (loading) {
     return <Loading />;
   }
-
   return (
     <div className="max-w-6xl grow mx-auto px-[10%] my-16 py-16 bg-white shadow-2xl">
       <div className="flex flex-col items-start sm:justify-between sm:flex-row flex-wrap gap-y-4 mb-4">
