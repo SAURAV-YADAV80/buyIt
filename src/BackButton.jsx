@@ -7,13 +7,14 @@ const BackButton = () => {
   return (
     <button
       onClick={() => navigate(-1)}
-      className="px-3 py-1 rounded-md bg-red-500 text-white"
+      className="px-3 py-1 rounded-md bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+      aria-label="Go back to the previous page"
     >
       Back
     </button>
   );
 };
 
-const newButton = memo(BackButton);
+const MemoizedBackButton = memo(BackButton);
 
-export default newButton;
+export default MemoizedBackButton;

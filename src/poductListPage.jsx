@@ -1,26 +1,24 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
-import Footer from "./Footer";
-import Pageno from "./Pageno";
 import SearchBar from "./SearchBar";
 import ProductList from "./productList";
-import { getProductData, getProductList } from "./api";
+import { getProductList } from "./api";
 import NoMatching from "./NoMatching";
 import Loading from "./loader";
 import { range } from "lodash";
 import { Link, useSearchParams } from "react-router-dom";
 
 function ProductListPage() {
-  const [allProducts, setAllProducts] = useState();
+  const [allProducts, setAllProducts] = useState(null);
   const [loading, setLoading] = useState(true);
   let [searchParams, setSearchParams] = useSearchParams();
   const params = Object.fromEntries(searchParams);
 
-  let {page, query, sort} = params;
+  let { page, query, sort } = params;
 
   page = +page || 1;
-  query = query|| "";
-  sort  = sort || "default";
+  query = query || "";
+  sort = sort || "default";
 
   useEffect(() => {
     let sortType;
@@ -40,10 +38,10 @@ function ProductListPage() {
     });
   }, [sort, query, page]);
 
-  const handleChange = (event) => 
-    setSearchParams({ ...params, query: event.target.value,page:1 }, { replace: false });
+  const handleChange = (event) =>
+    setSearchParams({ ...params, query: event.target.value, page: 1 }, { replace: false });
 
-  const handleSortChange = (event) => 
+  const handleSortChange = (event) =>
     setSearchParams({ ...params, sort: event.target.value }, { replace: false });
 
   if (loading) {
@@ -51,22 +49,30 @@ function ProductListPage() {
   }
 
   return (
-    <div className="max-w-6xl grow px-[10%] my-16 py-16 bg-white shadow-2xl">
-      <div className="flex flex-col items-start sm:justify-between sm:flex-row flex-wrap gap-y-4 mb-4">
-        <SearchBar handleChange={handleChange} query={query} />
-        <Dropdown handleSortChange={handleSortChange} sort={sort} />
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 my-16 py-12 bg-white shadow-2xl rounded-lg">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 space-y-4 sm:space-y-0 sm:space-x-4">
+        <div className="w-full sm:w-1/2 md:w-1/3">
+          <SearchBar handleChange={handleChange} query={query} />
+        </div>
+        <div className="w-full sm:w-1/3 md:w-1/4">
+          <Dropdown handleSortChange={handleSortChange} sort={sort} />
+        </div>
       </div>
-      {allProducts.data.length > 0 ? (
-        <ProductList products={allProducts.data} />
-      ) : (
-        <NoMatching />
-      )}
-      <div className="flex gap-x-1 mt-8">
+      <div>
+        {allProducts?.data.length > 0 ? (
+          <ProductList products={allProducts.data} />
+        ) : (
+          <NoMatching />
+        )}
+      </div>
+      <div className="flex justify-center gap-x-1 mt-8">
         {range(1, allProducts.meta.last_page + 1).map((pageNo) => (
           <Link
             key={pageNo}
             to={"?" + new URLSearchParams({ ...params, page: pageNo })}
-            className={"px-2 " + (pageNo === page ? "bg-red-500" : "bg-blue-600")}
+            className={`px-3 py-1 rounded ${
+              pageNo === page ? "bg-red-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+            } transition-colors duration-150`}
           >
             {pageNo}
           </Link>

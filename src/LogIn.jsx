@@ -19,7 +19,6 @@ function LogIn() {
     .then(response => {
       const { user, token } = response.data;
       localStorage.setItem('token', token);
-      console.log(user);
       setUser(user);
       setAlertVisible(true);
       setAlertType("success");
@@ -46,8 +45,8 @@ function LogIn() {
   };
 
   return (
-    <div className='flex items-center justify-center w-full h-full bg-gray-200 p-4'>
-      <div className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 bg-white p-6 sm:p-8 md:p-10 rounded-md shadow-lg">
+    <div className='flex items-center justify-center w-full bg-gray-200 p-4'>
+      <div className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 bg-white p-6 sm:p-8 md:p-10 rounded-md shadow-lg border border-red-200">
         <Formik initialValues={initialValues} onSubmit={callLoginApi} validationSchema={schema}>
           <Form className="flex flex-col gap-y-4">
             <div className="flex flex-col gap-y-2">
@@ -70,15 +69,15 @@ function LogIn() {
             </div>
             <button
               type="submit"
-              className="bg-blue-500 text-white rounded-md p-3 disabled:bg-blue-300 transition-colors"
+              className="bg-red-500 text-white rounded-md p-3 hover:bg-red-600 transition-colors"
             >
               Log in
             </button>
             <div className="text-center mt-4 text-sm">
-              Don't have an account? <Link to={`/SignUp`} className="text-blue-500 hover:underline">Sign up.</Link>
+              Don't have an account? <Link to={`/SignUp`} className="text-red-500 hover:underline">Sign up.</Link>
             </div>
             <div className="text-center mt-2 text-sm">
-              Forgot Password? <Link to={`/Forgot-Password`} className="text-blue-500 hover:underline">Reset here.</Link>
+              Forgot Password? <Link to={`/Forgot-Password`} className="text-red-500 hover:underline">Reset here.</Link>
             </div>
           </Form>
         </Formik>

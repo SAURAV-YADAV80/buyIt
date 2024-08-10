@@ -21,7 +21,7 @@ function Billing({ newTotal }) {
           </div>
           <hr />
         </div>
-        <button className="m-2 px-8 py-2 bg-red-500 rounded-md text-white font-bold">PROCEED TO CHECKOUT</button>
+        <button className="m-2 px-8 py-2 bg-red-500 rounded-md text-white font-bold hover:bg-red-600">PROCEED TO CHECKOUT</button>
       </div>
     </div>
   );

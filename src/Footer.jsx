@@ -1,18 +1,19 @@
-import React from "react";
-import {memo} from 'react';
-function Footer(){
+import React, { memo } from "react";
+
+function Footer() {
   return (
-    <div className="w-full bg-gray-400 px-4 py-2">
-      <div class="flex bg-gray-400 mx-auto max-w-6xl py-4 justify-between text-xs text-black">
-        <h1>
+    <div className="w-full bg-gray-100 px-4 py-4 shadow-md">
+      <div className="flex max-w-6xl mx-auto items-center justify-between text-sm text-gray-800">
+        <h1 className="text-center">
           Copyright © 2022 | Saurav
         </h1>
-        <h1>
+        <h1 className="text-center">
           Powered by Saurav Yadav
         </h1>
       </div>
     </div>
   );
 }
+
 const newFooter = memo(Footer);
 export default newFooter;
