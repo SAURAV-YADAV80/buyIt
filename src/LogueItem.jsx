@@ -22,7 +22,7 @@ function LogueItem({ id,price,no,title,cart,updateCart,setLocalCart,localCart,se
   }
   return(
     <div className='flex justify-between items-center bg-white sm:bg-white border-gray-300 border-b border-collapse'>
-      <span className='flex items-center w-40p sm:w-50p text-center'>
+      <span className='flex items-start w-40p sm:w-50p text-center'>
         <button className="p-4" onClick={function (){
             handleRemove(id);
             }}>

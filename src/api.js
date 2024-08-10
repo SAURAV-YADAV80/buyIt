@@ -8,6 +8,7 @@ export function getProductList(sortBy, search, page, sortType){
 
   if(sortBy){
     params.sortBy = sortBy;
+    params.sortType = sortType;
   }
   if(search){
     params.search = search;
@@ -17,5 +18,5 @@ export function getProductList(sortBy, search, page, sortType){
   }
   return axios.get("https://myeasykart.codeyogi.io/products",{
     params,
-  }).then(response => response.data.data);
+  }).then(response => response.data);
 }

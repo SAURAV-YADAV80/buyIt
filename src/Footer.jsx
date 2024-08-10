@@ -2,8 +2,8 @@ import React from "react";
 import {memo} from 'react';
 function Footer(){
   return (
-    <div className="w-full bg-gray-600 px-4 py-2">
-      <div class="flex bg-gray-600 mx-auto max-w-6xl py-4 justify-between text-xs text-white">
+    <div className="w-full bg-gray-400 px-4 py-2">
+      <div class="flex bg-gray-400 mx-auto max-w-6xl py-4 justify-between text-xs text-black">
         <h1>
           Copyright © 2022 | Saurav
         </h1>
