@@ -10,7 +10,7 @@ function Header({ count,user,setUser}) {
     setUser(undefined);
   }
   console.log('header',user);
-  return (<div className="z-10 fixed w-full bg-white px-4 py-3">
+  return (<div className="z-10 fixed w-full bg-white px-4 py-1">
     <div className="flex max-w-6xl mx-auto justify-between items-center bg-white">
       <div className="flex flex-col md:flex-row">
         <Link to="/" className="text-gray-500 text-sm"><img class="h-10" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/905px-Amazon_logo.svg.png?20220213013322" alt="amazon-icon"/></Link>

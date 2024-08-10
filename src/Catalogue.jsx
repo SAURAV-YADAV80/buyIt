@@ -60,7 +60,7 @@ function Catalogue({ cart,updateCart}) {
           </header>
           <div className='border-collapse'>
             {products.map(function(p){
-              return <LogueItem key={p.id} id={p.id} loading={loading} setLoading={setLoading} image={p.thumbnail} title={p.title} no={localCart[p.id]} price={p.price} cart={cart} updateCart={updateCart} localCart={localCart} setLocalCart={setLocalCart}
+              return <LogueItem key={p.id} id={p.id} loading={loading} setLoading={setLoading} title={p.title} no={localCart[p.id]} price={p.price} cart={cart} updateCart={updateCart} localCart={localCart} setLocalCart={setLocalCart}
                        setDirty={setDirty}/>
             })}
           </div>

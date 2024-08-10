@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import Header from "./Header";
-import Product from "./Product";
 import Dropdown from "./Dropdown";
 import Footer from "./Footer";
 import Pageno from "./Pageno";
@@ -9,40 +7,36 @@ import ProductList from "./productList";
 import { getProductList } from "./api";
 import NoMatching from "./NoMatching";
 import Loading from "./loader";
+// import Pageno from './Pageno';
 
 function ProductListPage() {
-  function handleCha() {
-    console.log("handleCha called");
-    setSort("default");
-  }
 
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("default");
+  const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    getProductList().then((products) => {
+  useEffect(function() {
+
+    let sortType;
+    let sortBy;
+    if(sort == "title"){
+      sortBy = 'title';
+    }
+    else if(sort == 'lowToHigh'){
+      sortBy = 'price';
+    }
+    else if(sort == 'highToLow'){
+      sortBy = 'price';
+      sortType = 'desc';
+    }
+    
+    getProductList(sortBy, query, page,sortType).then((products) => {
       setAllProducts(products);
       setLoading(false);
     });
-  }, []);
-
-  const filteredAndSortedProducts = useMemo(() => {
-    let filtered = allProducts.filter((item) =>
-      item.title.toLowerCase().includes(query.toLowerCase()),
-    );
-
-    if (sort === "price+") {
-      filtered.sort((a, b) => a.price - b.price);
-    } else if (sort === "price-") {
-      filtered.sort((a, b) => b.price - a.price);
-    } else if (sort === "title") {
-      filtered.sort((a, b) => a.title.localeCompare(b.title));
-    }
-
-    return filtered;
-  }, [allProducts, query, sort]);
+  }, [sort, query, page]);
 
   const handleChange = useCallback((event) => setQuery(event.target.value), []);
   const handleSortChange = useCallback(
@@ -59,15 +53,15 @@ function ProductListPage() {
         <SearchBar handleChange={handleChange} query={query} />
         <Dropdown handleSortChange={handleSortChange} sort={sort} />
       </div>
-      {filteredAndSortedProducts.length > 0 ? (
-        <ProductList products={filteredAndSortedProducts} />
+      {allProducts.length > 0 ? (
+        <ProductList products={allProducts} />
       ) : (
         <NoMatching />
       )}
       <div className="flex gap-x-1 mt-8">
-        <Pageno onClick={handleCha} no="1" />
-        <Pageno no="2" />
-        <Pageno no="→" />
+        <Pageno onClick={()=>setPage(1)} no="1" />
+        <Pageno onClick={()=>setPage(2)} no="2" />
+        <Pageno onClick={()=>setPage(3)} no="→" />
       </div>
     </div>
   );

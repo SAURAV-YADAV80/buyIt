@@ -18,6 +18,7 @@ function ProdDet({ onAddToCart, cart }) {
     setLoading(true);
     getProductData(+id)
       .then((product) => {
+        console.log('prodet',product);
         setProduct(product);
         setLoading(false);
       })
@@ -28,7 +29,7 @@ function ProdDet({ onAddToCart, cart }) {
 
   useEffect(() => {
     if (prod) {
-      setCount(cart[id] || 0);
+      setCount(cart[id] || 1);
     }
   }, [cart, prod, id]);
 
@@ -50,12 +51,12 @@ function ProdDet({ onAddToCart, cart }) {
 
   return (
     <div className="bg-gray-200 max-w-6xl mx-auto py-2 px-4">
-      <div className="flex max-w-4xl mx-auto">
+      <div className="flex max-w-4xl mx-auto mt-4">
         <BackButton />
       </div>
       <div className="flex bg-white rounded-md flex-col sm:flex-row p-5 border-2 mt-3 max-w-4xl mx-auto">
         <div className="sm:w-1/2">
-          <img className="w-full min-h-48 aspect-square object-cover" src={prod.thumbnail} alt={prod.title} />
+          <img className="w-full min-h-48 aspect-square object-cover" src='https://www.invoicera.com/wp-content/uploads-webpc/uploads/2023/11/default-image.jpg.webp' alt={prod.title} />
         </div>
         <div className="flex flex-col pt-5 sm:pt-0 sm:pl-5 min-w-2/3 gap-y-3 sm:w-1/2">
           <h1 className="text-black text-xl md:text-2xl lg:text-3xl">{prod.title}</h1>
