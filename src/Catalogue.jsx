@@ -45,7 +45,7 @@ function Catalogue({ cart,updateCart}) {
   }
   const newTotal = products.reduce((acc, p) => acc + cart[p.id] * p.price, 0);
   return (
-    <div className='w-11/12 bg-white overflow-auto'>
+    <div className='w-11/12 bg-white overflow-auto mt-10'>
       <div className='h-[70vh] flex flex-col items-end'>
         <div className='self-start ml-1/20 mt-10'>
           <BackButton/>

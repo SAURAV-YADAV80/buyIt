@@ -98,7 +98,7 @@ function App() {
             />
           )}
         </div>
-      <div className="grow flex justify-center items-center">
+      <div className="grow flex justify-center mt-8">
         <Routes>
             <Route index element={<UserRoute><ProductListPage /></UserRoute>} />
             <Route path="/ProdDet/:id" element={<UserRoute ><ProdDet onAddToCart= { handleAddToCart } cart={cart} /></UserRoute>} />
