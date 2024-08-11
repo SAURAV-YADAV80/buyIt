@@ -49,16 +49,18 @@ function ProductListPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 my-16 py-12 bg-white shadow-2xl rounded-lg">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 space-y-4 sm:space-y-0 sm:space-x-4">
-        <div className="w-full sm:w-1/2 md:w-1/3">
-          <SearchBar handleChange={handleChange} query={query} />
-        </div>
-        <div className="w-full sm:w-1/3 md:w-1/4">
-          <Dropdown handleSortChange={handleSortChange} sort={sort} />
+    <div className="max-w-6xl flex flex-col items-center mx-auto px-4 sm:px-6 my-16 py-12 bg-white shadow-2xl rounded-lg">
+      <div className="w-full flex flex-col sm:flex-row sm:justify-end items-center mb-8">
+        <div className="w-full sm:w-auto flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 sm:justify-end">
+          <div className="flex-grow sm:w-1/2">
+            <SearchBar handleChange={handleChange} query={query} />
+          </div>
+          <div className="flex-grow sm:w-1/2 mt-4 sm:mt-0">
+            <Dropdown handleSortChange={handleSortChange} sort={sort} />
+          </div>
         </div>
       </div>
-      <div>
+      <div className="flex-grow w-full min-h-[60vh] flex items-center justify-center">
         {allProducts?.data.length > 0 ? (
           <ProductList products={allProducts.data} />
         ) : (
