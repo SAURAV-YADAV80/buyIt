@@ -34,7 +34,7 @@ function LogueItem({ id, price, no, title, cart, updateCart, setLocalCart, local
       <span className="w-20p text-start flex items-center justify-center">${price.toFixed(2)}</span>
       <div className="w-20p flex justify-center">
         <input
-          className="w-16 h-6 text-start flex justify-center items-center border-gray-200 border"
+          className="w-12 h-6 text-start flex justify-center items-center border-gray-200 border"
           type="number"
           value={no}
           onChange={(event) => handleChange(+event.target.value, id)}
