@@ -58,7 +58,7 @@ function ProdDet({ onAddToCart, cart }) {
         <div className="sm:w-1/2">
           <img 
             className="w-full h-auto object-cover" 
-            src='https://www.invoicera.com/wp-content/uploads-webpc/uploads/2023/11/default-image.jpg.webp' 
+            src='https://images.pexels.com/photos/2536965/pexels-photo-2536965.jpeg?auto=compress&cs=tinysrgb&w=600' 
             alt={prod.title} 
           />
         </div>

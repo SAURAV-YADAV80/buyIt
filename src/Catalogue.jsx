@@ -68,7 +68,7 @@ function Catalogue({ cart, updateCart }) {
             <span className="w-20p text-center">Price</span>
             <span className="w-20p text-center hidden sm:block">Quantity</span>
             <span className="w-20p text-center pr-4 sm:hidden">Qty.</span>
-            <span className="w-20p text-center hidden sm:block">Subtotal</span>
+            <span className="w-[15%] text-start  hidden sm:block">Subtotal</span>
           </header>
           <div className="border-collapse">
             {products.map(p => (
