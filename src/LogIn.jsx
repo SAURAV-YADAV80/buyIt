@@ -1,16 +1,13 @@
-import React, { useContext } from 'react'; 
+import React from 'react'; 
 import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Input from './Input';
 import axios from 'axios';
-import { UserContext, AlertContext } from './App';
+import { withAlert,withUser } from './withProvider';
 
-function LogIn() {
+function LogIn({setAlert, setUser}) {
   const navigate = useNavigate();
-  const { setAlertVisible, setAlertType, setAlertMessage } = useContext(AlertContext);
-  const { setUser } = useContext(UserContext);
-
   const callLoginApi = (values) => {
     axios.post('https://myeasykart.codeyogi.io/login', {
       email: values.email,
@@ -20,16 +17,10 @@ function LogIn() {
       const { user, token } = response.data;
       localStorage.setItem('token', token);
       setUser(user);
-      setAlertVisible(true);
-      setAlertType("success");
-      setAlertMessage(`Login successful ${user.full_name}`);
       navigate('/');
     })
-    .catch(error => {
-      console.error('Error:', error);
-      setAlertVisible(true);
-      setAlertType("error");
-      setAlertMessage('Invalid credentials');
+    .catch(() => {
+      setAlert({type:'error', message:'Invalid Credentials'});
     });
   };
 
@@ -86,4 +77,4 @@ function LogIn() {
   );
 }
 
-export default LogIn;
+export default withAlert(withUser(LogIn));

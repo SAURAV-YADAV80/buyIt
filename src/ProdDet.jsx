@@ -4,8 +4,9 @@ import { getProductData } from './api';
 import Loading from './loader';
 import NotFound from './NotFound';
 import BackButton from './BackButton';
+import { withCart } from './withProvider';
 
-function ProdDet({ onAddToCart, cart }) {
+function ProdDet({ addToCart, cart }) {
   const { id } = useParams();
   const [prod, setProduct] = useState(null);
   const [count, setCount] = useState(1);
@@ -30,7 +31,7 @@ function ProdDet({ onAddToCart, cart }) {
   }, [cart, prod, id]);
 
   function handleAddToCart() {
-    onAddToCart(+id, count);
+      addToCart(+id, count);
   }
 
   function incrementCount() {
@@ -110,4 +111,4 @@ function ProdDet({ onAddToCart, cart }) {
   );
 }
 
-export default ProdDet;
+export default withCart(ProdDet);

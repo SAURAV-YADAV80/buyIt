@@ -1,36 +1,24 @@
-import React, { useEffect, useState, useContext } from 'react';
-import LogueItem from './LogueItem';
-import Billing from './Billing';
-import BackButton from './BackButton';
-import { getProductData } from './api';
-import Loading from './loader';
-import { AlertContext } from './App';
+import React, { useEffect, useState } from "react";
+import LogueItem from "./LogueItem";
+import Billing from "./Billing";
+import BackButton from "./BackButton";
+import { getProductsByIds } from "./api";
+import Loading from "./loader";
+import { withCart } from "./withProvider";
 
 function Catalogue({ cart, updateCart }) {
-  const { setAlertVisible, setAlertType, setAlertMessage } = useContext(AlertContext);
   const [dirty, setDirty] = useState(false);
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [localCart, setLocalCart] = useState(cart);
-  const productIds = Object.keys(cart);
 
   useEffect(() => {
     setLoading(true);
-    const fetchProducts = async () => {
-      try {
-        const productPromises = productIds.map(id => getProductData(id));
-        const fetchedProducts = await Promise.all(productPromises);
-        setProducts(fetchedProducts);
-        setLoading(false);
-      } catch (error) {
-        setAlertMessage('Failed to load products');
-        setAlertType('error');
-        setAlertVisible(true);
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
+    const productIds = Object.keys(cart);
+    getProductsByIds(productIds).then(function (products) {
+      setProducts(products);
+      setLoading(false);
+    });
   }, [cart]);
 
   useEffect(() => {
@@ -43,18 +31,21 @@ function Catalogue({ cart, updateCart }) {
 
   const handleUpdate = () => {
     updateCart(localCart);
-    setAlertMessage('Cart updated successfully!');
-    setAlertType('success');
+    setAlertMessage("Cart updated successfully!");
+    setAlertType("success");
     setAlertVisible(true);
     setDirty(false);
   };
 
-  let classText = ' text-gray-200 bg-red-200 ';
+  let classText = " text-gray-200 bg-red-200 ";
   if (dirty) {
-    classText = ' text-white bg-red-500 ';
+    classText = " text-white bg-red-500 ";
   }
 
-  const newTotal = products.reduce((acc, p) => acc + (cart[p.id] || 0) * p.price, 0);
+  const newTotal = products.reduce(
+    (acc, p) => acc + (cart[p.id] || 0) * p.price,
+    0,
+  );
 
   return (
     <div className="w-11/12 bg-white overflow-auto my-10">
@@ -68,14 +59,16 @@ function Catalogue({ cart, updateCart }) {
             <span className="w-20p text-center">Price</span>
             <span className="w-20p text-center hidden sm:block">Quantity</span>
             <span className="w-20p text-center pr-4 sm:hidden">Qty.</span>
-            <span className="w-[15%] text-start  hidden sm:block">Subtotal</span>
+            <span className="w-[15%] text-start  hidden sm:block">
+              Subtotal
+            </span>
           </header>
           <div className="border-collapse">
-            {products.map(p => (
+            {products.map((p) => (
               <LogueItem
                 key={p.id}
                 id={p.id}
-                title={p.title || 'Unknown Product'}
+                title={p.title || "Unknown Product"}
                 price={p.price || 0}
                 no={localCart[p.id] || 0}
                 cart={cart}
@@ -88,10 +81,21 @@ function Catalogue({ cart, updateCart }) {
           </div>
           <div className="flex flex-col sm:flex-row justify-between items-center border-b">
             <div className="self-start">
-              <input type="text" className="m-2 max-w-28 p-2 border border-gray-300 rounded" placeholder="Coupon Code" />
-              <button className="m-2 px-8 py-2 bg-red-500 rounded-md text-white font-bold hover:bg-red-600">APPLY COUPON</button>
+              <input
+                type="text"
+                className="m-2 max-w-28 p-2 border border-gray-300 rounded"
+                placeholder="Coupon Code"
+              />
+              <button className="m-2 px-8 py-2 bg-red-500 rounded-md text-white font-bold hover:bg-red-600">
+                APPLY COUPON
+              </button>
             </div>
-            <button onClick={handleUpdate} className={"m-2 px-8 py-2 rounded-md font-bold self-start" + classText}>
+            <button
+              onClick={handleUpdate}
+              className={
+                "m-2 px-8 py-2 rounded-md font-bold self-start" + classText
+              }
+            >
               UPDATE CART
             </button>
           </div>
@@ -102,4 +106,4 @@ function Catalogue({ cart, updateCart }) {
   );
 }
 
-export default Catalogue;
+export default withCart(Catalogue);

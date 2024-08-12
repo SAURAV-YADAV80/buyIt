@@ -4,7 +4,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Input from './Input';
 import axios from 'axios';
-import { UserContext } from './App';
+import { UserContext } from './Contexts';
 
 function SignUp() {
   const navigate = useNavigate();

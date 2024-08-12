@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AlertContext } from './App';
+import { AlertContext } from './Contexts';
 
 function LogueItem({ id, price, no, title, cart, updateCart, setLocalCart, localCart, setDirty }) {
   const { setAlertVisible, setAlertType, setAlertMessage } = useContext(AlertContext);

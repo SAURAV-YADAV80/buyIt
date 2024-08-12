@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import {withAlert} from './withProvider';
 
 const infoIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -24,16 +25,20 @@ const errorIcon = (
   </svg>
 );
 
-function Alert({ type, message, onClose }) {
+function Alert({alert,removeAlert}) {
+  if(!alert){
+    return<></>;
+  }
+  const { message, type } = alert;
 
   useEffect(() => {
-    if (type !== '') {
-      const timeOut = setTimeout(onClose, 3 * 1000);
+    if (alert) {
+      const timeOut = setTimeout(removeAlert,3 * 1000);
       return () => {
         clearTimeout(timeOut);
       };
     }
-  }, [type, onClose]);
+  }, [alert]);
 
   if (type === '') {
     return null;
@@ -60,14 +65,12 @@ function Alert({ type, message, onClose }) {
         <div className="ml-3 flex-1">
           <div className="flex justify-between items-center">
             <span>{message}</span>
-            {onClose && (
               <button
-                onClick={onClose}
                 className="ml-3 text-lg leading-none text-current hover:text-opacity-75 focus:outline-none"
+                onClick={removeAlert}
               >
                 &times;
               </button>
-            )}
           </div>
         </div>
       </div>
@@ -75,4 +78,4 @@ function Alert({ type, message, onClose }) {
   );
 }
 
-export default Alert;
+export default withAlert(Alert);
