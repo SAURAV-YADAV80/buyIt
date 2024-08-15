@@ -32,7 +32,7 @@ export function getProductList(sortBy, search, page, sortType) {
     params,
   }).then(response => response.data);
 }
-//{1:5, 7:8};
+//[1:5, 7:8;
 export function saveCart(cart) {
   console.log('saveCart is called with', cart);
   return axios.post("https://myeasykart.codeyogi.io/carts", { data: cart }, {

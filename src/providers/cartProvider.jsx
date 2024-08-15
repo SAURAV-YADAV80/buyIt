@@ -31,23 +31,30 @@ function CartProvider({ isLoggedIn, children }) {
   function updateCart(newCart) {
     setCart(newCart);
     setDirty(false);
+
+    // Prepare the cart as an object of {id: quantity} pairs
+    const cartObject = newCart.reduce((acc, curr) => {
+      return { ...acc, [curr.product.id]: curr.quantity };
+    }, {});
+
     if (!isLoggedIn) {
-      const cartString = JSON.stringify(
-        newCart.reduce((acc, curr) => ({ ...acc, [curr.product.id]: curr.quantity }), {})
-      );
+      const cartString = JSON.stringify(cartObject);
       localStorage.setItem("cart", cartString);
     } else {
-      saveCart(newCart);
+      saveCart(cartObject); // Call saveCart with the {id: quantity} object
     }
   }
 
   function addToCart(productId, newCount) {
+    const newCart = [...cart];
+    const product = newCart.find((p) => p.product.id === productId);
+
     if (!isLoggedIn) {
       // Non-logged in user
-      const newCart = [...cart];
-      const product = newCart.find((p) => p.product.id === productId);
       if (product) {
         product.quantity = newCount;
+        updateCart(newCart);
+        localStorage.setItem("cart", JSON.stringify(newCart));
       } else {
         getProductsByIds([productId]).then((products) => {
           newCart.push({
@@ -55,28 +62,27 @@ function CartProvider({ isLoggedIn, children }) {
             quantity: newCount,
           });
           updateCart(newCart);
-          localStorage.setItem("cart", JSON.stringify(newCart));
         });
       }
     } else {
       // Logged in user
-      console.log('logged in baale ne add kia');
       getProductsByIds([productId]).then((products) => {
-        const newCart = [...cart];
-        const product = newCart.find((p) => p.product.id === productId);
         if (product) {
-          console.log('same prod');
           product.quantity = newCount;
         } else {
-          console.log('newPRod');
           newCart.push({
             product: products[0],
             quantity: newCount,
           });
         }
-        console.log('newcart after changes',newCart);
-        saveCart(newCart); 
-        updateCart(newCart);
+
+        // Transform the cart to an object of {id: quantity} pairs
+        const cartObject = newCart.reduce((acc, curr) => {
+          return { ...acc, [curr.product.id]: curr.quantity };
+        }, {});
+
+        updateCart(newCart); // Update the UI cart state
+        saveCart(cartObject); // Save the transformed cart
       });
     }
   }

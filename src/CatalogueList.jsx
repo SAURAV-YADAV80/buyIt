@@ -4,38 +4,39 @@ import BackButton from "./BackButton";
 import { withCart } from "./withProvider";
 
 function CatalogueList({ cart, updateCart }) {
-  const [quantityMap, setQuantityMap] = useState([]);
+  const [quantityMap, setQuantityMap] = useState({});
   const [dirty, setDirty] = useState(false);
 
   useEffect(() => {
-    // Create a map with product, id, and quantity from cart
-    const map = cart.map((cartItem) => ({
-      id: cartItem.product.id,
-      product: cartItem.product,
-      quantity: cartItem.quantity,
-    }));
+    // Create an object with productId as the key and quantity as the value
+    const map = cart.reduce((acc, cartItem) => {
+      acc[cartItem.product.id] = cartItem.quantity;
+      return acc;
+    }, {});
     setQuantityMap(map);
   }, [cart]);
 
   const handleRemove = (productId) => {
-    const newQuantityMap = quantityMap.filter((item) => item.id !== productId);
+    const { [productId]: _, ...newQuantityMap } = quantityMap; // Remove the productId key
     setQuantityMap(newQuantityMap);
-    updateCart(newQuantityMap);
+    const updatedCart = cart.filter(item => item.product.id !== productId);
+    updateCart(updatedCart);
   };
 
   const handleChange = (newQuantity, productId) => {
     setDirty(true);
-    const newQuantityMap = quantityMap.map((item) => {
-      if (item.id === productId) {
-        return { ...item, quantity: newQuantity };
-      }
-      return item;
-    });
-    setQuantityMap(newQuantityMap);
+    setQuantityMap(prevState => ({
+      ...prevState,
+      [productId]: newQuantity,
+    }));
   };
 
   const handleUpdate = () => {
-    updateCart(quantityMap);
+    const updatedCart = cart.map(item => ({
+      ...item,
+      quantity: quantityMap[item.product.id],
+    }));
+    updateCart(updatedCart);
     setDirty(false);
   };
 
@@ -52,13 +53,13 @@ function CatalogueList({ cart, updateCart }) {
         <span className="w-[15%] text-start hidden sm:block">Subtotal</span>
       </header>
       <div className="border-collapse">
-        {quantityMap.map((cartItem) => (
+        {cart.map((cartItem) => (
           <LogueItem
-            key={cartItem.id}
-            quantity={cartItem.quantity}
+            key={cartItem.product.id}
+            quantity={quantityMap[cartItem.product.id]}
             product={cartItem.product}
-            onRemove={handleRemove}
-            onChange={handleChange}
+            onRemove={() => handleRemove(cartItem.product.id)}
+            onChange={(newQuantity) => handleChange(newQuantity, cartItem.product.id)}
           />
         ))}
       </div>
