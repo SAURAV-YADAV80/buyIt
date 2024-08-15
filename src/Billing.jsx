@@ -2,7 +2,7 @@ import React from 'react';
 
 function Billing({ newTotal }) {
   return (
-    <div className='w-80 sm:mr-1/20 mt-10 mb-10 border border-gray-300 self-center sm:self-end'>
+    <div className='w-80 sm:mr-1/20 mt-10 border border-gray-300 self-center sm:self-end'>
       <div className='p-2 font-bold text-gray-600 border-b border-gray-300 border-collapse bg-gray-300'>
         Cart totals
       </div>

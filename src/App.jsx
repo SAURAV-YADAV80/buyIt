@@ -30,10 +30,10 @@ function App() {
           </div>
           <div className="grow flex justify-center mt-8">
             <Routes>
-              <Route index element={<UserRoute><ProductListPage /></UserRoute>} />
-              <Route path="/ProdDet/:id" element={<UserRoute><ProdDet /></UserRoute>} />
-              <Route path="/Catalogue" element={<UserRoute><Catalogue /></UserRoute>} />
-              <Route path="/LogIn" element={<AuthRoute><LogIn /></AuthRoute>} />
+              <Route index element={<ProductListPage />}/>
+              <Route path="/ProdDet/:id" element={<ProdDet />}/>
+              <Route path="/Catalogue" element={<Catalogue />}/>
+              <Route path="/LogIn" element={<LogIn />}/>
               <Route path="/Forgot-Password" element={<ForgotPassword />} />
               <Route path="/SignUp" element={<SignUp />} />
               <Route path="*" element={<NotFound />} />
