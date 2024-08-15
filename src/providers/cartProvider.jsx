@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { CartContext } from "../Contexts";
 import { withUser } from "../withProvider";
 import { saveCart, getCart, getProductsByIds } from "../api";
+import Loading  from "../loader";
 
 function CartProvider({ isLoggedIn, children }) {
   const [cart, setCart] = useState([]);
@@ -102,11 +103,11 @@ function CartProvider({ isLoggedIn, children }) {
     });
     updateCart(newCart);
   }
-
+  console.log(cart);
   const countCart = cart.reduce((prev, curr) => prev + curr.quantity, 0);
-
+  console.log(countCart);
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
 
   return (

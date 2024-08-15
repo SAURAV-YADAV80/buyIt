@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import {withUser,withCart} from "./withProvider";
 
 function Header({ countCart, user, setUser }) {
-  if(!user){
-    countCart=0;
-  }
   function handleLogout() {
     localStorage.removeItem("token");
     setUser(undefined);

@@ -3,7 +3,7 @@ import LogueItem from "./LogueItem";
 import BackButton from "./BackButton";
 import { withCart } from "./withProvider";
 
-function CatalogueList({ cart, updateCart }) {
+function CatalogueList({ cart, updateCart, setNewTotal }) {
   const [quantityMap, setQuantityMap] = useState({});
   const [dirty, setDirty] = useState(false);
 
@@ -15,6 +15,16 @@ function CatalogueList({ cart, updateCart }) {
     }, {});
     setQuantityMap(map);
   }, [cart]);
+
+  useEffect(() => {
+    // Calculate the total amount based on product prices and quantities
+    const total = cart.reduce((acc, cartItem) => {
+      const quantity = quantityMap[cartItem.product.id] || cartItem.quantity;
+      return acc + cartItem.product.price * quantity;
+    }, 0);
+
+    setNewTotal(total);
+  }, [cart, quantityMap, setNewTotal]);
 
   const handleRemove = (productId) => {
     const { [productId]: _, ...newQuantityMap } = quantityMap; // Remove the productId key

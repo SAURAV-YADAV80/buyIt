@@ -1,6 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Billing({ newTotal }) {
+function Billing({ newTotal,user }) {
+  const navigate = useNavigate();
+  function handlePurchase(){
+    if(user){
+      alert('your purchases are successful');
+    }
+    else{
+      navigate('/LogIn');
+    }
+  }
   return (
     <div className='w-80 sm:mr-1/20 mt-10 border border-gray-300 self-center sm:self-end'>
       <div className='p-2 font-bold text-gray-600 border-b border-gray-300 border-collapse bg-gray-300'>
@@ -21,7 +31,7 @@ function Billing({ newTotal }) {
           </div>
           <hr />
         </div>
-        <button className="m-2 px-8 py-2 bg-red-500 rounded-md text-white font-bold hover:bg-red-600">PROCEED TO CHECKOUT</button>
+        <button onClick={handlePurchase} className="m-2 px-8 py-2 bg-red-500 rounded-md text-white font-bold hover:bg-red-600">PROCEED TO CHECKOUT</button>
       </div>
     </div>
   );
