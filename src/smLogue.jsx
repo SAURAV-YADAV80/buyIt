@@ -13,7 +13,7 @@ const SmLogue = ({ product, quantity, onRemove, onChange }) => {
   const subtotal = (product.price * quantity).toFixed(2);
 
   return (
-    <div className="flex flex-col md:flex-row bg-white border-gray-300 border p-3 space-y-4 md:space-y-0">
+    <div className="mt-4 flex flex-col md:flex-row bg-white border-gray-300 border p-3 space-y-4 md:space-y-0">
       <button className="p-4 self-start" onClick={handleRemove}>
         {/* SVG icon */}
         <svg
