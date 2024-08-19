@@ -54,7 +54,7 @@ function ProdDet({ addToCart, cart }) {
   }
 
   return (
-    <div className="self-center bg-gray-200 max-w-6xl mx-auto py-2 px-4">
+    <div className="mt-7 self-center bg-gray-200 max-w-6xl mx-auto py-2 px-4">
       <div className="flex max-w-4xl mx-auto mt-4">
         <BackButton />
       </div>
