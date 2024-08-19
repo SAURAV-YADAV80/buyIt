@@ -13,7 +13,7 @@ function LogueItem({ product, quantity, onRemove, onChange }) {
   const subtotal = (product.price * quantity).toFixed(2);
 
   return (
-    <div className="flex justify-between items-center bg-white border-gray-300 border">
+    <div className="hidden sm:flex justify-between items-center bg-white border-gray-300 border">
       <span className="flex items-center w-40p sm:w-50p text-start">
         <button className="p-4" onClick={handleRemove}>
           <svg
@@ -30,7 +30,7 @@ function LogueItem({ product, quantity, onRemove, onChange }) {
           src="https://images.pexels.com/photos/2536965/pexels-photo-2536965.jpeg?auto=compress&cs=tinysrgb&w=600"
           alt={product.title}
         />
-        <p className="ml-4 text-red-600 font-bold hidden sm:block w-full truncate">
+        <p className="ml-4 text-red-600 font-bold w-full truncate">
           {product.title}
         </p>
       </span>
@@ -43,7 +43,7 @@ function LogueItem({ product, quantity, onRemove, onChange }) {
           onChange={handleChange}
         />
       </div>
-      <span className="w-[15%] text-center hidden sm:block">${subtotal}</span>
+      <span className="w-[15%] text-center">${subtotal}</span>
     </div>
   );
 }

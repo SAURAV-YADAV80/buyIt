@@ -5,11 +5,18 @@ import * as Yup from 'yup';
 import Input from './Input';
 import axios from 'axios';
 import { UserContext } from './Contexts';
+import { saveCart } from './api';
 
 function SignUp() {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
-
+  function handleSignUp(){
+    const localData = JSON.parse(localStorage.getItem('cart'));
+    const cartObject = localData.reduce((acc, curr) => {
+      return { ...acc, [curr.product.id]: curr.quantity };
+    }, {});
+    saveCart(cartObject);
+  }
   function callSignUpApi(values) {
     axios.post("https://myeasykart.codeyogi.io/signup", {
       email: values.email,
@@ -21,6 +28,7 @@ function SignUp() {
       const { user, token } = response.data;
       setUser(user);
       localStorage.setItem("token", token);
+      handleSignUp();
       navigate('/');
     })
     .catch(error => {

@@ -37,7 +37,7 @@ function CartProvider({ isLoggedIn, children }) {
     const cartObject = newCart.reduce((acc, curr) => {
       return { ...acc, [curr.product.id]: curr.quantity };
     }, {});
-
+    console.log('saveCart call karne ke phle ka obj',cartObject);
     if (!isLoggedIn) {
       const cartString = JSON.stringify(cartObject);
       localStorage.setItem("cart", cartString);
@@ -49,6 +49,7 @@ function CartProvider({ isLoggedIn, children }) {
   function addToCart(productId, newCount) {
     const newCart = [...cart];
     const product = newCart.find((p) => p.product.id === productId);
+    console.log('addToCart ka newCart', newCart);
 
     if (!isLoggedIn) {
       // Non-logged in user
@@ -62,6 +63,7 @@ function CartProvider({ isLoggedIn, children }) {
             product: products[0],
             quantity: newCount,
           });
+          console.log('just before update cart', newCart);
           updateCart(newCart);
         });
       }

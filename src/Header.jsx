@@ -31,7 +31,7 @@ function Header({ countCart, user, setUser }) {
               to="/SignUp" 
               className="bg-red-500 hover:bg-red-400 text-white rounded-md px-4 py-2 transition"
             >
-              SignUp/LogIn
+              SignUp
             </Link>
           ) : (
             <button 

@@ -9,7 +9,7 @@ import { withCart } from './withProvider';
 function ProdDet({ addToCart, cart }) {
   const { id } = useParams();
   const [prod, setProduct] = useState(null);
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(1); // Default count
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,22 +24,25 @@ function ProdDet({ addToCart, cart }) {
       });
   }, [id]);
 
+  // Set count from cart based on the product's quantity
   useEffect(() => {
     if (prod) {
-      setCount(cart[id] || 1);
+      const cartItem = cart.find(item => item.product.id === +id); // Find the matching product in the cart
+      const productCount = cartItem ? cartItem.quantity : 1; // Get the quantity or default to 1
+      setCount(productCount);
     }
   }, [cart, prod, id]);
 
   function handleAddToCart() {
-      addToCart(+id, count);
+    addToCart(+id, count);
   }
 
   function incrementCount() {
-    setCount(count + 1);
+    setCount(prevCount => prevCount + 1); // Ensure you're increasing the count
   }
 
   function decrementCount() {
-    setCount(count > 1 ? count - 1 : 1);
+    setCount(prevCount => (prevCount > 1 ? prevCount - 1 : 1)); // Ensure count doesn't go below 1
   }
 
   if (loading) {
@@ -76,9 +79,9 @@ function ProdDet({ addToCart, cart }) {
                 -
               </button>
               <input
-                className="w-16 border-2  p-1 text-center"
+                className="w-16 border-2 p-1 text-center"
                 type="text"
-                value={count}
+                value={count} // Displaying the count properly
                 readOnly
               />
               <button 
