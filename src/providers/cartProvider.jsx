@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { CartContext } from "../Contexts";
-import { withUser } from "../withProvider";
+import { withUser, withAlert } from "../withProvider";
 import { saveCart, getCart, getProductsByIds } from "../api";
 import Loading  from "../loader";
 
-function CartProvider({ isLoggedIn, children }) {
+function CartProvider({ isLoggedIn, children, setAlert }) {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
   const [dirty, setDirty] = useState(false);
 
+  console.log('inCartProvd', typeof setAlert);
+  
   useEffect(() => {
     setLoading(true);
     if (isLoggedIn) {
@@ -47,6 +49,7 @@ function CartProvider({ isLoggedIn, children }) {
   }
 
   function addToCart(productId, newCount) {
+    console.log('alert must call');
     const newCart = [...cart];
     const product = newCart.find((p) => p.product.id === productId);
     console.log('addToCart ka newCart', newCart);
@@ -119,4 +122,4 @@ function CartProvider({ isLoggedIn, children }) {
   );
 }
 
-export default withUser(CartProvider);
+export default withAlert(withUser(CartProvider));

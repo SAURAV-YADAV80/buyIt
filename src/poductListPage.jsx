@@ -39,10 +39,16 @@ function ProductListPage() {
   }, [sort, query, page]);
 
   const handleChange = (event) =>
-    setSearchParams({ ...params, query: event.target.value, page: 1 }, { replace: false });
+    setSearchParams(
+      { ...params, query: event.target.value, page: 1 },
+      { replace: false },
+    );
 
   const handleSortChange = (event) =>
-    setSearchParams({ ...params, sort: event.target.value }, { replace: false });
+    setSearchParams(
+      { ...params, sort: event.target.value },
+      { replace: false },
+    );
 
   if (loading) {
     return <Loading />;
@@ -52,8 +58,16 @@ function ProductListPage() {
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 my-16 py-12 bg-white shadow-2xl rounded-lg">
       {/* Search and Sort Section */}
       <div className="w-full flex flex-col sm:flex-row justify-start md:ml-[55px] items-center mb-8 space-y-4 sm:space-y-0">
-        <SearchBar handleChange={handleChange} query={query} className="w-full sm:w-1/2" />
-        <Dropdown handleSortChange={handleSortChange} sort={sort} className="w-full sm:w-1/2 sm:ml-4" />
+        <SearchBar
+          handleChange={handleChange}
+          query={query}
+          className="w-full sm:w-1/2"
+        />
+        <Dropdown
+          handleSortChange={handleSortChange}
+          sort={sort}
+          className="w-full sm:w-1/2 sm:ml-4"
+        />
       </div>
 
       {/* Product List or No Matching */}
@@ -74,7 +88,9 @@ function ProductListPage() {
             key={pageNo}
             to={"?" + new URLSearchParams({ ...params, page: pageNo })}
             className={`px-3 py-1 rounded ${
-              pageNo === page ? "bg-red-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+              pageNo === page
+                ? "bg-red-500 text-white"
+                : "bg-gray-200 text-gray-800 hover:bg-gray-300"
             } transition-colors duration-150`}
           >
             {pageNo}

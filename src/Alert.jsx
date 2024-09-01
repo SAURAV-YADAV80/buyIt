@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {withAlert} from './withProvider';
+import { withAlert } from './withProvider';
 
 const infoIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -25,22 +25,21 @@ const errorIcon = (
   </svg>
 );
 
-function Alert({alert,removeAlert}) {
-  if(!alert){
-    return<></>;
+function Alert({ alert, removeAlert }) {
+  if (!alert) {
+    return null;
   }
+
   const { message, type } = alert;
 
   useEffect(() => {
     if (alert) {
-      const timeOut = setTimeout(removeAlert,3 * 1000);
-      return () => {
-        clearTimeout(timeOut);
-      };
+      const timeout = setTimeout(removeAlert, 3000);
+      return () => clearTimeout(timeout);
     }
-  }, [alert]);
+  }, [alert, removeAlert]);
 
-  if (type === '') {
+  if (!type || !['info', 'success', 'warning', 'error'].includes(type)) {
     return null;
   }
 
@@ -65,12 +64,12 @@ function Alert({alert,removeAlert}) {
         <div className="ml-3 flex-1">
           <div className="flex justify-between items-center">
             <span>{message}</span>
-              <button
-                className="ml-3 text-lg leading-none text-current hover:text-opacity-75 focus:outline-none"
-                onClick={removeAlert}
-              >
-                &times;
-              </button>
+            <button
+              className="ml-3 text-lg leading-none text-current hover:text-opacity-75 focus:outline-none"
+              onClick={removeAlert}
+            >
+              &times;
+            </button>
           </div>
         </div>
       </div>

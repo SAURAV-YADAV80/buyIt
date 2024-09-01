@@ -14,12 +14,16 @@ function LogIn({setAlert, setUser}) {
       password: values.password
     })
     .then(response => {
+      console.log('Alert');
       const { user, token } = response.data;
       localStorage.setItem('token', token);
       setUser(user);
+      console.log('suc', typeof setAlert);
+      setAlert({type:'success', message:'Login Successful'});
       navigate('/');
     })
     .catch(() => {
+      console.log('wrnog', typeof setAlert);
       setAlert({type:'error', message:'Invalid Credentials'});
     });
   };
