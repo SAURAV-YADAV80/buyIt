@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { getProductData } from './api';
-import Loading from './loader';
-import NotFound from './NotFound';
-import BackButton from './BackButton';
-import { withCart, withAlert } from './withProvider';
-import withRouter from './withRouter';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { getProductData } from "./api";
+import Loading from "./loader";
+import NotFound from "./NotFound";
+import BackButton from "./BackButton";
+import { withCart, withAlert } from "./withProvider";
+import withRouter from "./withRouter";
 
 class ProdDet extends Component {
   constructor(props) {
@@ -40,36 +40,35 @@ class ProdDet extends Component {
       .catch(() => {
         this.setState({ loading: false });
       });
-  }
+  };
 
   updateCount = () => {
     const { cart } = this.props;
     const { id } = this.props.match.params;
     if (this.state.prod) {
-      const cartItem = cart.find(item => item.product.id === +id);
+      const cartItem = cart.find((item) => item.product.id === +id);
       const productCount = cartItem ? cartItem.quantity : 1;
       this.setState({ count: productCount });
     }
-  }
+  };
 
   handleAddToCart = () => {
     const { addToCart, setAlert, cart } = this.props;
     const { id } = this.props.match.params;
     const { count } = this.state;
     addToCart(+id, count);
-    setAlert({ type: 'success', message: 'Product added successfully' });
-  }
-
+    setAlert({ type: "success", message: "Product added successfully" });
+  };
 
   incrementCount = () => {
-    this.setState(prevState => ({ count: prevState.count + 1 }));
-  }
+    this.setState((prevState) => ({ count: prevState.count + 1 }));
+  };
 
   decrementCount = () => {
-    this.setState(prevState => ({
-      count: prevState.count > 1 ? prevState.count - 1 : 1
+    this.setState((prevState) => ({
+      count: prevState.count > 1 ? prevState.count - 1 : 1,
     }));
-  }
+  };
 
   render() {
     const { prod, count, loading } = this.state;
@@ -87,14 +86,20 @@ class ProdDet extends Component {
           <div className="sm:w-1/2">
             <img
               className="w-full h-auto object-cover"
-              src='https://images.pexels.com/photos/2536965/pexels-photo-2536965.jpeg?auto=compress&cs=tinysrgb&w=600'
+              src="https://images.pexels.com/photos/2536965/pexels-photo-2536965.jpeg?auto=compress&cs=tinysrgb&w=600"
               alt={prod.title}
             />
           </div>
           <div className="flex flex-col pt-5 sm:pt-0 sm:pl-5 sm:w-1/2">
-            <h1 className="text-black text-xl md:text-2xl lg:text-3xl">{prod.title}</h1>
-            <h2 className="text-black text-md md:text-xl lg:text-2xl font-bold">${prod.price}</h2>
-            <p className="text-gray-500 text-sm sm:text-md">{prod.description}</p>
+            <h1 className="text-black text-xl md:text-2xl lg:text-3xl">
+              {prod.title}
+            </h1>
+            <h2 className="text-black text-md md:text-xl lg:text-2xl font-bold">
+              ${prod.price}
+            </h2>
+            <p className="text-gray-500 text-sm sm:text-md">
+              {prod.description}
+            </p>
             <div className="flex flex-row items-center gap-2 mt-4">
               <div className="flex">
                 <button
@@ -126,12 +131,20 @@ class ProdDet extends Component {
           </div>
         </div>
         <div className="flex justify-between mt-4 max-w-4xl mx-auto">
-          {+id > 1 && (
-            <Link className="text-white bg-red-500 px-3 py-1 rounded-md" to={`/ProdDet/${+id - 1}`}>
-              Prev
-            </Link>
-          )}
-          <Link className="text-white bg-red-500 px-3 py-1 rounded-md" to={`/ProdDet/${+id + 1}`}>
+          <div>
+            {+id > 1 && (
+              <Link
+                className="text-white bg-red-500 px-3 py-1 rounded-md"
+                to={`/ProdDet/${+id - 1}`}
+              >
+                Prev
+              </Link>
+            )}
+          </div>
+          <Link
+            className="text-white bg-red-500 px-3 py-1 rounded-md"
+            to={`/ProdDet/${+id + 1}`}
+          >
             Next
           </Link>
         </div>
